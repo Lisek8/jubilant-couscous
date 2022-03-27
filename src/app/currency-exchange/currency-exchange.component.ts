@@ -4,7 +4,10 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
   ChangeDetectorRef,
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
+import { Table } from 'primeng/table';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import {
@@ -20,6 +23,8 @@ import {
 })
 export class CurrencyExchangeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
+  @ViewChild(Table)
+  currencyTable: Table;
   exchangeRates: CurrencyExchangeRate[];
   requestedDate: Date;
 
@@ -59,5 +64,11 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
         }
         this.cdr.detectChanges();
       });
+  }
+
+  clearTableStatus() {
+    if (this.currencyTable) {
+      this.currencyTable.clear();
+    }
   }
 }

@@ -30,11 +30,13 @@
               label="Clear"
               iconPos="left"
               class="p-button-help p-button-outlined"
+              (click)="clearTableStatus()"
             ></button>
             <div class="p-field p-col-12">
               <p-calendar
                 [(ngModel)]="requestedDate"
                 [showIcon]="true"
+                dateFormat="yy-mm-dd"
               ></p-calendar>
             </div>
           </div>
