@@ -12,6 +12,8 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { CurrencyExchangeComponent } from './currency-exchange/currency-exchange.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [AppComponent, MenuBarComponent, CurrencyExchangeComponent],
@@ -25,6 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     CalendarModule,
     BrowserAnimationsModule,
+    DropdownModule,
+    MultiSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

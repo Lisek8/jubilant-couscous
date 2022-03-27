@@ -1,3 +1,4 @@
 .container {
+  height: calc(100% - 74px); // Full - menu size
   overflow-y: auto;
 }

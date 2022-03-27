@@ -13,8 +13,11 @@
     [value]="exchangeRates"
     styleClass="p-datatable-gridlines"
     [paginator]="true"
-    [rows]="6"
+    [rows]="5"
     [loading]="isLoading"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50]"
   >
     <ng-template pTemplate="header">
       <tr>
