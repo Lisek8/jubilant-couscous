@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -8,7 +9,7 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { Table } from 'primeng/table';
-import { of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import {
   CurrencyExchangeRate,
@@ -30,6 +31,7 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   isError: boolean;
+  errorMessage: string;
 
   constructor(
     private dataProvider: DataProviderService,
@@ -44,19 +46,52 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
     this.destroy$.next();
   }
 
+  private errorHandler(
+    error: HttpErrorResponse
+  ): Observable<CurrencyExchangeResponse[]> {
+    if (error.status === 400) {
+      this.errorMessage = error.error;
+      if (
+        (error.error as string).includes(
+          'Błędny zakres dat / Invalid date range'
+        )
+      ) {
+        return of([
+          {
+            table: '',
+            no: '',
+            effectiveDate: '',
+            rates: [],
+          },
+        ]);
+      }
+    }
+    this.isError = true;
+    this.isLoading = false;
+    return of([]);
+  }
+
   private loadCurrentRates() {
     this.isError = false;
     this.isLoading = true;
     this.dataProvider
       .getCurrentExchangeRates()
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError(() => {
-          this.isError = true;
+      .pipe(takeUntil(this.destroy$), catchError(this.errorHandler))
+      .subscribe((data: CurrencyExchangeResponse[]) => {
+        if (data && data[0]?.rates) {
+          this.exchangeRates = data[0].rates;
           this.isLoading = false;
-          return of([]);
-        })
-      )
+        }
+        this.cdr.detectChanges();
+      });
+  }
+
+  private loadExchangeRates(date: Date) {
+    this.isError = false;
+    this.isLoading = true;
+    this.dataProvider
+      .getExchangeRatesFromDate(date)
+      .pipe(takeUntil(this.destroy$), catchError(this.errorHandler))
       .subscribe((data: CurrencyExchangeResponse[]) => {
         if (data && data[0]?.rates) {
           this.exchangeRates = data[0].rates;
@@ -69,6 +104,18 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
   clearTableStatus() {
     if (this.currencyTable) {
       this.currencyTable.clear();
+    }
+  }
+
+  /*
+    Use onBlur and onSelect events to avoid spamming api with every keystroke during manual input.
+    When invalid date is passes by user, requestedDate is null in that case get current exchange rates
+  */
+  updateData(): void {
+    if (this.requestedDate) {
+      this.loadExchangeRates(this.requestedDate);
+    } else {
+      this.loadCurrentRates();
     }
   }
 }

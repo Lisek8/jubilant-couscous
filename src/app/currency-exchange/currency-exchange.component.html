@@ -7,6 +7,7 @@
       <span class="ms-3"
         >Wystąpił błąd podczas pobierania danych o walutach</span
       >
+      <span *ngIf="errorMessage">{{ errorMessage }}</span>
     </div>
   </div>
   <p-table
@@ -37,6 +38,9 @@
                 [(ngModel)]="requestedDate"
                 [showIcon]="true"
                 dateFormat="yy-mm-dd"
+                (onSelect)="updateData()"
+                (onBlur)="updateData()"
+                [disabled]="isLoading"
               ></p-calendar>
             </div>
           </div>

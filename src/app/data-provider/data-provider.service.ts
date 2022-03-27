@@ -31,7 +31,7 @@ export class DataProviderService {
         error.error
       );
     }
-    return throwError(() => error);
+    return throwError(error);
   }
 
   public getCurrentExchangeRates(): Observable<CurrencyExchangeResponse[]> {
