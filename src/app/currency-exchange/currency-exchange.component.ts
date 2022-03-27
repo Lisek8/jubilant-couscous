@@ -43,6 +43,7 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.selectedTheme = this.themeService.currentTheme;
     this.loadCurrentRates();
   }
 
