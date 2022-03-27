@@ -3,6 +3,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+export interface CurrencyExchangeResponse {
+  table: string;
+  no: string;
+  effectiveDate: string;
+  rates: CurrencyExchangeRate[];
+}
+
+export interface CurrencyExchangeRate {
+  currency: string;
+  code: string;
+  mid: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,13 +34,15 @@ export class DataProviderService {
     return throwError(() => error);
   }
 
-  public getCurrentExchangeRates(): Observable<any> {
+  public getCurrentExchangeRates(): Observable<CurrencyExchangeRate[]> {
     return this.http
       .get<any>('https://api.nbp.pl/api/exchangerates/tables/A/?format=json')
       .pipe(catchError(this.handleError));
   }
 
-  public getExchangeRatesFromDate(date: Date): Observable<any> {
+  public getExchangeRatesFromDate(
+    date: Date
+  ): Observable<CurrencyExchangeRate[]> {
     const formattedDate = date.toISOString().split('T')[0];
     return this.http
       .get<any>(
