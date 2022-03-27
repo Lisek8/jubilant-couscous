@@ -44,7 +44,7 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selectedTheme = this.themeService.currentTheme;
-    this.loadCurrentRates();
+    this.loadExchangeRates();
   }
 
   ngOnDestroy(): void {
@@ -76,11 +76,11 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
     return of([]);
   }
 
-  private loadCurrentRates() {
+  private loadExchangeRates(date?: Date): void {
     this.isError = false;
     this.isLoading = true;
     this.dataProvider
-      .getCurrentExchangeRates()
+      .getExchangeRates(date)
       .pipe(takeUntil(this.destroy$), catchError(this.errorHandler))
       .subscribe((data: CurrencyExchangeResponse[]) => {
         if (data && data[0]?.rates) {
@@ -91,22 +91,7 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
       });
   }
 
-  private loadExchangeRates(date: Date) {
-    this.isError = false;
-    this.isLoading = true;
-    this.dataProvider
-      .getExchangeRatesFromDate(date)
-      .pipe(takeUntil(this.destroy$), catchError(this.errorHandler))
-      .subscribe((data: CurrencyExchangeResponse[]) => {
-        if (data && data[0]?.rates) {
-          this.exchangeRates = data[0].rates;
-          this.isLoading = false;
-        }
-        this.cdr.detectChanges();
-      });
-  }
-
-  clearTableStatus() {
+  clearTableStatus(): void {
     if (this.currencyTable) {
       this.currencyTable.clear();
     }
@@ -117,11 +102,7 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
     When invalid date is passes by user, requestedDate is null in that case get current exchange rates
   */
   updateData(): void {
-    if (this.requestedDate) {
-      this.loadExchangeRates(this.requestedDate);
-    } else {
-      this.loadCurrentRates();
-    }
+    this.loadExchangeRates(this.requestedDate);
   }
 
   onThemeButtonPress(): void {
