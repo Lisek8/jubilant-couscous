@@ -47,34 +47,43 @@
         </th>
       </tr>
       <tr>
-        <th>
+        <th pSortableColumn="code">
           <div class="d-flex justify-content-between align-items-center">
             <span>Symbol waluty</span>
-            <p-columnFilter
-              type="text"
-              field="code"
-              display="menu"
-            ></p-columnFilter>
+            <div>
+              <p-sortIcon field="code"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="code"
+                display="menu"
+              ></p-columnFilter>
+            </div>
           </div>
         </th>
-        <th>
+        <th pSortableColumn="currency">
           <div class="d-flex justify-content-between align-items-center">
             <span>Waluta</span>
-            <p-columnFilter
-              type="text"
-              field="currency"
-              display="menu"
-            ></p-columnFilter>
+            <div>
+              <p-sortIcon field="currency"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="currency"
+                display="menu"
+              ></p-columnFilter>
+            </div>
           </div>
         </th>
-        <th>
+        <th pSortableColumn="mid">
           <div class="d-flex justify-content-between align-items-center">
             <span>Kurs waluty</span>
-            <p-columnFilter
-              type="text"
-              field="mid"
-              display="menu"
-            ></p-columnFilter>
+            <div>
+              <p-sortIcon field="mid"></p-sortIcon>
+              <p-columnFilter
+                type="text"
+                field="mid"
+                display="menu"
+              ></p-columnFilter>
+            </div>
           </div>
         </th>
       </tr>
