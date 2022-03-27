@@ -1,0 +1,7 @@
+@import '../../node_modules/primeng/resources/themes/mdc-dark-indigo/theme.css';
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+
+body {
+  background-color: $dark !important;
+}
