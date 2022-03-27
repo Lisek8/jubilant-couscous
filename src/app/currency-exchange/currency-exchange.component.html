@@ -1,9 +1,20 @@
 <div class="container-fluid">
+  <div *ngIf="!isLoading && isError" class="mb-3">
+    <div
+      class="d-flex align-items-center justify-content-center p-5 border border-danger rounded-lg"
+    >
+      <i class="pi pi-times-circle error-icon" style="font-size: 2rem"></i>
+      <span class="ms-3"
+        >Wystąpił błąd podczas pobierania danych o walutach</span
+      >
+    </div>
+  </div>
   <p-table
     [value]="exchangeRates"
     styleClass="p-datatable-gridlines"
     [paginator]="true"
     [rows]="6"
+    [loading]="isLoading"
   >
     <ng-template pTemplate="header">
       <tr>
