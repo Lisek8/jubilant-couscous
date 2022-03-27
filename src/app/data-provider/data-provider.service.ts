@@ -34,7 +34,7 @@ export class DataProviderService {
     return throwError(() => error);
   }
 
-  public getCurrentExchangeRates(): Observable<CurrencyExchangeRate[]> {
+  public getCurrentExchangeRates(): Observable<CurrencyExchangeResponse[]> {
     return this.http
       .get<any>('https://api.nbp.pl/api/exchangerates/tables/A/?format=json')
       .pipe(catchError(this.handleError));
@@ -42,7 +42,7 @@ export class DataProviderService {
 
   public getExchangeRatesFromDate(
     date: Date
-  ): Observable<CurrencyExchangeRate[]> {
+  ): Observable<CurrencyExchangeResponse[]> {
     const formattedDate = date.toISOString().split('T')[0];
     return this.http
       .get<any>(

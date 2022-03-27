@@ -1,1 +1,43 @@
-<p>currency-exchange works!</p>
+<div class="container-fluid">
+  <p-table
+    [value]="exchangeRates"
+    styleClass="p-datatable-gridlines"
+    [paginator]="true"
+    [rows]="6"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="3">
+          <div class="d-flex justify-content-between">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-filter-slash"
+              label="Clear"
+              iconPos="left"
+              class="p-button-help p-button-outlined"
+            ></button>
+            <div class="p-field p-col-12">
+              <p-calendar
+                [(ngModel)]="requestedDate"
+                [showIcon]="true"
+              ></p-calendar>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th>Symbol waluty</th>
+        <th>Waluta</th>
+        <th>Kurs waluty</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rate>
+      <tr>
+        <td>{{ rate.code }}</td>
+        <td>{{ rate.currency }}</td>
+        <td>{{ rate.mid }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
