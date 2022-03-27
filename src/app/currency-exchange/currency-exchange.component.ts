@@ -16,6 +16,7 @@ import {
   CurrencyExchangeResponse,
   DataProviderService,
 } from '../data-provider/data-provider.service';
+import { Theme, ThemeServiceService } from '../theme/theme-service.service';
 
 @Component({
   selector: 'app-currency-exchange',
@@ -28,6 +29,8 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
   currencyTable: Table;
   exchangeRates: CurrencyExchangeRate[];
   requestedDate: Date;
+  selectedTheme: string;
+  themes: Theme[] = this.themeService.Themes;
 
   isLoading: boolean;
   isError: boolean;
@@ -35,7 +38,8 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataProvider: DataProviderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private themeService: ThemeServiceService
   ) {}
 
   ngOnInit(): void {
@@ -117,5 +121,9 @@ export class CurrencyExchangeComponent implements OnInit, OnDestroy {
     } else {
       this.loadCurrentRates();
     }
+  }
+
+  onThemeButtonPress(): void {
+    this.themeService.switchTheme(this.selectedTheme);
   }
 }

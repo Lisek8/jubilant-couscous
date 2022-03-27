@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [AppComponent, MenuBarComponent, CurrencyExchangeComponent],
@@ -29,6 +30,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     BrowserAnimationsModule,
     DropdownModule,
     MultiSelectModule,
+    SelectButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
