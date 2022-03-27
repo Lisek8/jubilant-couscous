@@ -41,9 +41,36 @@
         </th>
       </tr>
       <tr>
-        <th>Symbol waluty</th>
-        <th>Waluta</th>
-        <th>Kurs waluty</th>
+        <th>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>Symbol waluty</span>
+            <p-columnFilter
+              type="text"
+              field="code"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>Waluta</span>
+            <p-columnFilter
+              type="text"
+              field="currency"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>Kurs waluty</span>
+            <p-columnFilter
+              type="text"
+              field="mid"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rate>

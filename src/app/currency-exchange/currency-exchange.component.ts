@@ -17,7 +17,6 @@ import {
   selector: 'app-currency-exchange',
   templateUrl: './currency-exchange.component.html',
   styleUrls: ['./currency-exchange.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyExchangeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
